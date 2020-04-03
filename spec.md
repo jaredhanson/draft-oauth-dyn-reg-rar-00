@@ -68,12 +68,10 @@ following fields:
     {
       "type": "client_registration",
       "actions": [
-        "initiate",
-        "status",
-        "cancel"
+        "create"
       ],
       "locations": [
-        "https://example.com/payments"
+        "https://server.example.com/register"
       ],
       "redirect_uris": [
         "https://client.example.org/callback",
