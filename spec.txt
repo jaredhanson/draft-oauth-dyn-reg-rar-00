@@ -4,8 +4,8 @@
 
 Web Authorization Protocol                                     J. Hanson
 Internet-Draft                                                      Okta
-Intended status: Standards Track                          April 03, 2020
-Expires: October 5, 2020
+Intended status: Standards Track                          April 14, 2020
+Expires: October 16, 2020
 
 
  OAuth 2.0 Dynamic Client Registration Access using Rich Authorization
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 5, 2020.
+   This Internet-Draft will expire on October 16, 2020.
 
 Copyright Notice
 
@@ -53,15 +53,15 @@ Copyright Notice
 
 
 
-Hanson                   Expires October 5, 2020                [Page 1]
+Hanson                  Expires October 16, 2020                [Page 1]
 
 Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
 
 1.  Introduction
 
-   OAuth 2.0 Dynamic Client Registration Protocol [RFC7591] defines
-   mechanisms for dynamically registering OAuth 2.0 clients with
+   OAuth 2.0 Dynamic Client Registration Protocol [RFC7591] defines a
+   mechanism for dynamically registering OAuth 2.0 clients with
    authorization servers.  An OAuth 2.0 access token can optionally be
    used to authorize calls to the client registration endpoint.
    However, the type and format of this token as well as the means by
@@ -70,11 +70,11 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
    This specification defines a mechanism using OAuth 2.0 Rich
    Authorization Requests [I-D.ietf-oauth-rar] by which an authorization
-   can obtain end-user consent to permit client registration.  The
-   details regarding the consent that was obtained can be communicated
-   to the dynamic client registration endpoint, which can be used to
-   limit the parties that can register a client as well as restrict
-   allowable client metadata.
+   server can obtain end-user consent to permit client registration.
+   The details regarding the consent that was obtained can be
+   communicated to the dynamic client registration endpoint, which can
+   be used to limit the parties that can register a client as well as
+   restrict allowable client metadata.
 
 1.1.  Notational Conventions
 
@@ -91,7 +91,7 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 2.  Authorization Data Type
 
    To make an authorization request for client registration, the client
-   makes an authorization request as defined in Section 3.1 of OAuth 2.0
+   makes an authorization request as defined in Section 2.1 of OAuth 2.0
    Rich Authorization Requests [I-D.ietf-oauth-rar].
 
    This value of the "type" of the authorization object is
@@ -109,7 +109,7 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
 
 
-Hanson                   Expires October 5, 2020                [Page 2]
+Hanson                  Expires October 16, 2020                [Page 2]
 
 Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
@@ -118,12 +118,10 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
        {
          "type": "client_registration",
          "actions": [
-           "initiate",
-           "status",
-           "cancel"
+           "create"
          ],
          "locations": [
-           "https://example.com/payments"
+           "https://server.example.com/register"
          ],
          "redirect_uris": [
            "https://client.example.org/callback",
@@ -139,7 +137,40 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
        }
      ]
 
-3.  Normative References
+3.  Obtaining Authorization
+
+3.1.  Authorization Request
+
+   In order to obtain authorization for dynamic registration of a
+   client, the client makes an authorization request as described in
+   Section 3.1 of [I-D.ietf-oauth-rar].  The "authorization_details"
+   parameter includes a client registration authorization object as
+   described in Section 2.
+
+   For example, a client using the authorization code grant type would
+   make the following authorization request:
+
+   GET /authorize?response_type=code&client_id=s6BhdRkqt3
+       &state=af0ifjsldkj
+       &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+       &authorization_details=%5B%7B%22type%22%3A%22client_registration
+       %22%2C%22actions%22%3A%5B%22create%22%2C%22read%22%2C%22update%2
+       2%5D%2C%22locations%22%3A%5B%22https%3A%2F%2Fserver.example.com%
+       2Fregister%22%5D%2C%22redirect_uris%22%3A%5B%22https%3A%2F%2Fcli
+       ent.example.org%2Fcallback%22%5D%7D%5D
+   Host: server.example.com
+
+
+
+
+
+
+Hanson                  Expires October 16, 2020                [Page 3]
+
+Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
+
+
+4.  Normative References
 
    [I-D.ietf-oauth-rar]
               Lodderstedt, T., Richer, J., and B. Campbell, "OAuth 2.0
@@ -159,16 +190,6 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
-
-Hanson                   Expires October 5, 2020                [Page 3]
-
-Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
-
 
 Author's Address
 
@@ -200,25 +221,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Hanson                   Expires October 5, 2020                [Page 4]
+Hanson                  Expires October 16, 2020                [Page 4]
