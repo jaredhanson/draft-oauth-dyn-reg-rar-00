@@ -4,8 +4,8 @@
 
 Web Authorization Protocol                                     J. Hanson
 Internet-Draft                                                      Okta
-Intended status: Standards Track                          April 14, 2020
-Expires: October 16, 2020
+Intended status: Standards Track                          April 15, 2020
+Expires: October 17, 2020
 
 
  OAuth 2.0 Dynamic Client Registration Access using Rich Authorization
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 16, 2020.
+   This Internet-Draft will expire on October 17, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Hanson                  Expires October 16, 2020                [Page 1]
+Hanson                  Expires October 17, 2020                [Page 1]
 
 Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
@@ -109,7 +109,7 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
 
 
-Hanson                  Expires October 16, 2020                [Page 2]
+Hanson                  Expires October 17, 2020                [Page 2]
 
 Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
@@ -142,7 +142,7 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 3.1.  Authorization Request
 
    In order to obtain authorization for dynamic registration of a
-   client, the client makes an authorization request as described in
+   client, the client makes an authorization request as defined in
    Section 3.1 of [I-D.ietf-oauth-rar].  The "authorization_details"
    parameter includes a client registration authorization object as
    described in Section 2.
@@ -150,25 +150,42 @@ Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
    For example, a client using the authorization code grant type would
    make the following authorization request:
 
-   GET /authorize?response_type=code&client_id=s6BhdRkqt3
-       &state=af0ifjsldkj
-       &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
-       &authorization_details=%5B%7B%22type%22%3A%22client_registration
-       %22%2C%22actions%22%3A%5B%22create%22%2C%22read%22%2C%22update%2
-       2%5D%2C%22locations%22%3A%5B%22https%3A%2F%2Fserver.example.com%
-       2Fregister%22%5D%2C%22redirect_uris%22%3A%5B%22https%3A%2F%2Fcli
-       ent.example.org%2Fcallback%22%5D%7D%5D
-   Host: server.example.com
+  GET /authorize?response_type=code&client_id=s6BhdRkqt3
+      &state=af0ifjsldkj
+      &redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb
+      &authorization_details=%5B%7B%22type%22%3A%22client_registration%2
+      2%2C%22actions%22%3A%5B%22create%22%2C%22read%22%2C%22update%22%5D
+      %2C%22locations%22%3A%5B%22https%3A%2F%2Fserver.example.com%2Fregi
+      ster%22%5D%2C%22redirect_uris%22%3A%5B%22https%3A%2F%2Fclient.exam
+      ple.org%2Fcallback%22%5D%7D%5D
+  Host: server.example.com
 
 
 
 
 
 
-Hanson                  Expires October 16, 2020                [Page 3]
+Hanson                  Expires October 17, 2020                [Page 3]
 
 Internet-DraOAuth 2.0 Dynamic Client Registration Access usi  April 2020
 
+
+3.2.  Authorization Processing
+
+   The authorization server MUST authorize the request based on the data
+   provided in the "authorizatiton_details" parameter, as defined in
+   Section 3.2 of [I-D.ietf-oauth-rar].
+
+   The authorization server SHOULD present the end-user with a consent
+   prompt informing the user about relevent details pertaining to the
+   client which will be dynamically registered.  Such information MAY
+   include identifiying metadata such as the client name and logo.  Such
+   information SHOULD include metadata pertaining to the security of the
+   client such as redirect URIs used in redirect- based flows and
+   authentication methods.
+
+   As described in Section 5 of [I-D.ietf-oauth-rar], exact processing
+   is considered an implementation detail.
 
 4.  Normative References
 
@@ -204,21 +221,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Hanson                  Expires October 16, 2020                [Page 4]
+Hanson                  Expires October 17, 2020                [Page 4]

@@ -93,7 +93,7 @@ following fields:
 ## Authorization Request
 
 In order to obtain authorization for dynamic registration of a client, the
-client makes an authorization request as described in Section 3.1 of
+client makes an authorization request as defined in Section 3.1 of
 {{!I-D.ietf-oauth-rar}}.  The `authorization_details` parameter includes a 
 client registration authorization object as described in Section 2.
 
@@ -111,5 +111,21 @@ GET /authorize?response_type=code&client_id=s6BhdRkqt3
     ple.org%2Fcallback%22%5D%7D%5D
 Host: server.example.com
 ~~~~~~~~~~
+
+## Authorization Processing
+
+The authorization server MUST authorize the request based on the data provided
+in the `authorizatiton_details` parameter, as defined in Section 3.2 of
+{{!I-D.ietf-oauth-rar}}.
+
+The authorization server SHOULD present the end-user with a consent prompt
+informing the user about relevent details pertaining to the client which will be
+dynamically registered.  Such information MAY include identifiying metadata
+such as the client name and logo.  Such information SHOULD include metadata
+pertaining to the security of the client such as redirect URIs used in redirect-
+based flows and authentication methods.
+
+As described in Section 5 of {{!I-D.ietf-oauth-rar}}, exact processing is
+considered an implementation detail.
 
 
